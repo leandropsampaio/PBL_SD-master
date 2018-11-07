@@ -1,6 +1,6 @@
 <sld_project_info>
   <project>
-    <hash md5_digest_80b="053b37db5fda7e71d961"/>
+    <hash md5_digest_80b="afce4f450cb3ae9f00a6"/>
   </project>
   <file_info>
     <file device="EP4CE6E22C8" path="PBL-SD-1.sof" usercode="0xFFFFFFFF"/>
@@ -81,7 +81,7 @@
         <port name="jtag.bp.nios_the_Nios_Nios_nios2_oci_the_Nios_Nios_jtag_debug_module_wrapper_Nios_Nios_jtag_debug_module_phy_sld_virtual_jtag_impl_inst_ir_out_1_"/>
       </outputs>
     </node>
-    <node hpath="Nios_Jtag:jtag|alt_jtag_atlantic:Nios_Jtag_alt_jtag_atlantic" instance_id="0" mfg_id="110" node_id="128" sld_node_info="0xC006E00" version="1">
+    <node hpath="Nios_jtag_uart_0:jtag_uart_0|alt_jtag_atlantic:Nios_jtag_uart_0_alt_jtag_atlantic" instance_id="0" mfg_id="110" node_id="128" sld_node_info="0xC006E00" version="1">
       <parameters>
         <parameter name="INSTANCE_ID" type="dec" value="0"/>
         <parameter name="SLD_NODE_INFO" type="ubin" value="00001100000000000110111000000000"/>
@@ -94,31 +94,31 @@
         <parameter name="SCAN_LENGTH" type="dec" value="11"/>
       </parameters>
       <inputs>
-        <port name="clk" source="Nios_Jtag:jtag|clk"/>
-        <port name="rst_n" source="Nios_Jtag:jtag|rst_n"/>
-        <port name="r_val" source="Nios_Jtag:jtag|r_val"/>
-        <port name="r_dat[0]" source="Nios_Jtag:jtag|Nios_Jtag_scfifo_w:the_Nios_Jtag_scfifo_w|r_dat[0]"/>
-        <port name="r_dat[1]" source="Nios_Jtag:jtag|Nios_Jtag_scfifo_w:the_Nios_Jtag_scfifo_w|r_dat[1]"/>
-        <port name="r_dat[2]" source="Nios_Jtag:jtag|Nios_Jtag_scfifo_w:the_Nios_Jtag_scfifo_w|r_dat[2]"/>
-        <port name="r_dat[3]" source="Nios_Jtag:jtag|Nios_Jtag_scfifo_w:the_Nios_Jtag_scfifo_w|r_dat[3]"/>
-        <port name="r_dat[4]" source="Nios_Jtag:jtag|Nios_Jtag_scfifo_w:the_Nios_Jtag_scfifo_w|r_dat[4]"/>
-        <port name="r_dat[5]" source="Nios_Jtag:jtag|Nios_Jtag_scfifo_w:the_Nios_Jtag_scfifo_w|r_dat[5]"/>
-        <port name="r_dat[6]" source="Nios_Jtag:jtag|Nios_Jtag_scfifo_w:the_Nios_Jtag_scfifo_w|r_dat[6]"/>
-        <port name="r_dat[7]" source="Nios_Jtag:jtag|Nios_Jtag_scfifo_w:the_Nios_Jtag_scfifo_w|r_dat[7]"/>
-        <port name="t_dav" source="Nios_Jtag:jtag|t_dav"/>
-        <port name="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_raw_tck" source="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_raw_tck"/>
-        <port name="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_tck" source="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_tck"/>
-        <port name="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_tdi" source="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_tdi"/>
-        <port name="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_rti" source="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_rti"/>
-        <port name="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_shift" source="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_shift"/>
-        <port name="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_update" source="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_update"/>
-        <port name="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_usr1" source="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_usr1"/>
-        <port name="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_clr" source="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_clr"/>
-        <port name="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_ena" source="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_ena"/>
-        <port name="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_ir_in_0_" source="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_ir_in_0_"/>
-        <port name="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_jtag_state_cdr" source="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_jtag_state_cdr"/>
-        <port name="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_jtag_state_sdr" source="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_jtag_state_sdr"/>
-        <port name="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_jtag_state_udr" source="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_jtag_state_udr"/>
+        <port name="clk" source="Nios_jtag_uart_0:jtag_uart_0|clk"/>
+        <port name="rst_n" source="Nios_jtag_uart_0:jtag_uart_0|rst_n"/>
+        <port name="r_val" source="Nios_jtag_uart_0:jtag_uart_0|r_val"/>
+        <port name="r_dat[0]" source="Nios_jtag_uart_0:jtag_uart_0|Nios_jtag_uart_0_scfifo_w:the_Nios_jtag_uart_0_scfifo_w|r_dat[0]"/>
+        <port name="r_dat[1]" source="Nios_jtag_uart_0:jtag_uart_0|Nios_jtag_uart_0_scfifo_w:the_Nios_jtag_uart_0_scfifo_w|r_dat[1]"/>
+        <port name="r_dat[2]" source="Nios_jtag_uart_0:jtag_uart_0|Nios_jtag_uart_0_scfifo_w:the_Nios_jtag_uart_0_scfifo_w|r_dat[2]"/>
+        <port name="r_dat[3]" source="Nios_jtag_uart_0:jtag_uart_0|Nios_jtag_uart_0_scfifo_w:the_Nios_jtag_uart_0_scfifo_w|r_dat[3]"/>
+        <port name="r_dat[4]" source="Nios_jtag_uart_0:jtag_uart_0|Nios_jtag_uart_0_scfifo_w:the_Nios_jtag_uart_0_scfifo_w|r_dat[4]"/>
+        <port name="r_dat[5]" source="Nios_jtag_uart_0:jtag_uart_0|Nios_jtag_uart_0_scfifo_w:the_Nios_jtag_uart_0_scfifo_w|r_dat[5]"/>
+        <port name="r_dat[6]" source="Nios_jtag_uart_0:jtag_uart_0|Nios_jtag_uart_0_scfifo_w:the_Nios_jtag_uart_0_scfifo_w|r_dat[6]"/>
+        <port name="r_dat[7]" source="Nios_jtag_uart_0:jtag_uart_0|Nios_jtag_uart_0_scfifo_w:the_Nios_jtag_uart_0_scfifo_w|r_dat[7]"/>
+        <port name="t_dav" source="Nios_jtag_uart_0:jtag_uart_0|t_dav"/>
+        <port name="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_raw_tck" source="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_raw_tck"/>
+        <port name="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_tck" source="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_tck"/>
+        <port name="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_tdi" source="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_tdi"/>
+        <port name="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_rti" source="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_rti"/>
+        <port name="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_shift" source="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_shift"/>
+        <port name="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_update" source="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_update"/>
+        <port name="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_usr1" source="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_usr1"/>
+        <port name="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_clr" source="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_clr"/>
+        <port name="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_ena" source="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_ena"/>
+        <port name="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_ir_in_0_" source="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_ir_in_0_"/>
+        <port name="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_jtag_state_cdr" source="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_jtag_state_cdr"/>
+        <port name="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_jtag_state_sdr" source="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_jtag_state_sdr"/>
+        <port name="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_jtag_state_udr" source="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_jtag_state_udr"/>
       </inputs>
       <outputs>
         <port name="r_ena"/>
@@ -135,16 +135,16 @@
         <port name="t_dat[7]"/>
         <port name="t_pause"/>
         <port name="t_pause"/>
-        <port name="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_tdo"/>
-        <port name="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_irq"/>
-        <port name="jtag.bp.jtag_Nios_Jtag_alt_jtag_atlantic_ir_out_0_"/>
+        <port name="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_tdo"/>
+        <port name="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_irq"/>
+        <port name="jtag.bp.jtag_uart_0_Nios_jtag_uart_0_alt_jtag_atlantic_ir_out_0_"/>
       </outputs>
     </node>
   </node_info>
   <sld_infos>
     <sld_info hpath="" name="">
       <assignment_values>
-        <assignment_value text="QSYS_NAME Nios HAS_SOPCINFO 1 GENERATION_ID 1539912500"/>
+        <assignment_value text="QSYS_NAME Nios HAS_SOPCINFO 1 GENERATION_ID 1541507784"/>
       </assignment_values>
       <parameters/>
     </sld_info>

@@ -4,7 +4,7 @@
  * Machine generated for CPU 'Nios' in SOPC Builder design 'Nios'
  * SOPC Builder design path: C:/Users/Micro/Desktop/PBL_SD-master/PBL_SD-master/Nios.sopcinfo
  *
- * Generated: Thu Oct 18 22:36:30 BRT 2018
+ * Generated: Tue Nov 06 09:32:57 GFT 2018
  */
 
 /*
@@ -60,13 +60,15 @@
 
 #include "altera_nios2_qsys_irq.h"
 #include "altera_avalon_jtag_uart.h"
+#include "altera_avalon_uart.h"
 
 /*
  * Allocate the device storage
  */
 
 ALTERA_NIOS2_QSYS_IRQ_INSTANCE ( NIOS, Nios);
-ALTERA_AVALON_JTAG_UART_INSTANCE ( JTAG, Jtag);
+ALTERA_AVALON_JTAG_UART_INSTANCE ( JTAG_UART_0, jtag_uart_0);
+ALTERA_AVALON_UART_INSTANCE ( UART_1, UART_1);
 
 /*
  * Initialize the interrupt controller devices
@@ -89,5 +91,6 @@ void alt_irq_init ( const void* base )
 
 void alt_sys_init( void )
 {
-    ALTERA_AVALON_JTAG_UART_INIT ( JTAG, Jtag);
+    ALTERA_AVALON_JTAG_UART_INIT ( JTAG_UART_0, jtag_uart_0);
+    ALTERA_AVALON_UART_INIT ( UART_1, UART_1);
 }

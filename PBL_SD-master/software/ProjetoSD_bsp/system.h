@@ -4,7 +4,7 @@
  * Machine generated for CPU 'Nios' in SOPC Builder design 'Nios'
  * SOPC Builder design path: C:/Users/Micro/Desktop/PBL_SD-master/PBL_SD-master/Nios.sopcinfo
  *
- * Generated: Thu Oct 18 22:36:30 BRT 2018
+ * Generated: Tue Nov 06 10:09:12 GFT 2018
  */
 
 /*
@@ -135,26 +135,9 @@
 #define __ALTERA_AVALON_JTAG_UART
 #define __ALTERA_AVALON_ONCHIP_MEMORY2
 #define __ALTERA_AVALON_PIO
+#define __ALTERA_AVALON_UART
 #define __ALTERA_NIOS2_QSYS
 #define __LCD
-
-
-/*
- * Jtag configuration
- *
- */
-
-#define ALT_MODULE_CLASS_Jtag altera_avalon_jtag_uart
-#define JTAG_BASE 0x11090
-#define JTAG_IRQ 0
-#define JTAG_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define JTAG_NAME "/dev/Jtag"
-#define JTAG_READ_DEPTH 64
-#define JTAG_READ_THRESHOLD 8
-#define JTAG_SPAN 8
-#define JTAG_TYPE "altera_avalon_jtag_uart"
-#define JTAG_WRITE_DEPTH 64
-#define JTAG_WRITE_THRESHOLD 8
 
 
 /*
@@ -172,25 +155,50 @@
 #define ALT_NUM_EXTERNAL_INTERRUPT_CONTROLLERS 0
 #define ALT_NUM_INTERNAL_INTERRUPT_CONTROLLERS 1
 #define ALT_NUM_INTERRUPT_CONTROLLERS 1
-#define ALT_STDERR "/dev/Jtag"
-#define ALT_STDERR_BASE 0x11090
-#define ALT_STDERR_DEV Jtag
+#define ALT_STDERR "/dev/jtag_uart_0"
+#define ALT_STDERR_BASE 0x110b0
+#define ALT_STDERR_DEV jtag_uart_0
 #define ALT_STDERR_IS_JTAG_UART
 #define ALT_STDERR_PRESENT
 #define ALT_STDERR_TYPE "altera_avalon_jtag_uart"
-#define ALT_STDIN "/dev/Jtag"
-#define ALT_STDIN_BASE 0x11090
-#define ALT_STDIN_DEV Jtag
+#define ALT_STDIN "/dev/jtag_uart_0"
+#define ALT_STDIN_BASE 0x110b0
+#define ALT_STDIN_DEV jtag_uart_0
 #define ALT_STDIN_IS_JTAG_UART
 #define ALT_STDIN_PRESENT
 #define ALT_STDIN_TYPE "altera_avalon_jtag_uart"
-#define ALT_STDOUT "/dev/Jtag"
-#define ALT_STDOUT_BASE 0x11090
-#define ALT_STDOUT_DEV Jtag
+#define ALT_STDOUT "/dev/jtag_uart_0"
+#define ALT_STDOUT_BASE 0x110b0
+#define ALT_STDOUT_DEV jtag_uart_0
 #define ALT_STDOUT_IS_JTAG_UART
 #define ALT_STDOUT_PRESENT
 #define ALT_STDOUT_TYPE "altera_avalon_jtag_uart"
 #define ALT_SYSTEM_NAME "Nios"
+
+
+/*
+ * UART_1 configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_UART_1 altera_avalon_uart
+#define UART_1_BASE 0x11000
+#define UART_1_BAUD 115200
+#define UART_1_DATA_BITS 8
+#define UART_1_FIXED_BAUD 1
+#define UART_1_FREQ 50000000
+#define UART_1_IRQ 1
+#define UART_1_IRQ_INTERRUPT_CONTROLLER_ID 0
+#define UART_1_NAME "/dev/UART_1"
+#define UART_1_PARITY 'N'
+#define UART_1_SIM_CHAR_STREAM ""
+#define UART_1_SIM_TRUE_BAUD 0
+#define UART_1_SPAN 32
+#define UART_1_STOP_BITS 1
+#define UART_1_SYNC_REG_DEPTH 2
+#define UART_1_TYPE "altera_avalon_uart"
+#define UART_1_USE_CTS_RTS 0
+#define UART_1_USE_EOP_REGISTER 0
 
 
 /*
@@ -204,12 +212,30 @@
 
 
 /*
+ * jtag_uart_0 configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_jtag_uart_0 altera_avalon_jtag_uart
+#define JTAG_UART_0_BASE 0x110b0
+#define JTAG_UART_0_IRQ 0
+#define JTAG_UART_0_IRQ_INTERRUPT_CONTROLLER_ID 0
+#define JTAG_UART_0_NAME "/dev/jtag_uart_0"
+#define JTAG_UART_0_READ_DEPTH 64
+#define JTAG_UART_0_READ_THRESHOLD 8
+#define JTAG_UART_0_SPAN 8
+#define JTAG_UART_0_TYPE "altera_avalon_jtag_uart"
+#define JTAG_UART_0_WRITE_DEPTH 64
+#define JTAG_UART_0_WRITE_THRESHOLD 8
+
+
+/*
  * led1 configuration
  *
  */
 
 #define ALT_MODULE_CLASS_led1 altera_avalon_pio
-#define LED1_BASE 0x11080
+#define LED1_BASE 0x110a0
 #define LED1_BIT_CLEARING_EDGE_REGISTER 0
 #define LED1_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define LED1_CAPTURE 0
@@ -236,7 +262,7 @@
  */
 
 #define ALT_MODULE_CLASS_led2 altera_avalon_pio
-#define LED2_BASE 0x11060
+#define LED2_BASE 0x11080
 #define LED2_BIT_CLEARING_EDGE_REGISTER 0
 #define LED2_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define LED2_CAPTURE 0
@@ -263,7 +289,7 @@
  */
 
 #define ALT_MODULE_CLASS_led3 altera_avalon_pio
-#define LED3_BASE 0x11050
+#define LED3_BASE 0x11070
 #define LED3_BIT_CLEARING_EDGE_REGISTER 0
 #define LED3_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define LED3_CAPTURE 0
@@ -290,7 +316,7 @@
  */
 
 #define ALT_MODULE_CLASS_led4 altera_avalon_pio
-#define LED4_BASE 0x11040
+#define LED4_BASE 0x11060
 #define LED4_BIT_CLEARING_EDGE_REGISTER 0
 #define LED4_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define LED4_CAPTURE 0
@@ -317,7 +343,7 @@
  */
 
 #define ALT_MODULE_CLASS_led5 altera_avalon_pio
-#define LED5_BASE 0x11030
+#define LED5_BASE 0x11050
 #define LED5_BIT_CLEARING_EDGE_REGISTER 0
 #define LED5_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define LED5_CAPTURE 0
@@ -373,7 +399,7 @@
  */
 
 #define ALT_MODULE_CLASS_pushbuton1 altera_avalon_pio
-#define PUSHBUTON1_BASE 0x11070
+#define PUSHBUTON1_BASE 0x11090
 #define PUSHBUTON1_BIT_CLEARING_EDGE_REGISTER 0
 #define PUSHBUTON1_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define PUSHBUTON1_CAPTURE 0
@@ -400,7 +426,7 @@
  */
 
 #define ALT_MODULE_CLASS_pushbuton2 altera_avalon_pio
-#define PUSHBUTON2_BASE 0x11020
+#define PUSHBUTON2_BASE 0x11040
 #define PUSHBUTON2_BIT_CLEARING_EDGE_REGISTER 0
 #define PUSHBUTON2_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define PUSHBUTON2_CAPTURE 0
@@ -427,7 +453,7 @@
  */
 
 #define ALT_MODULE_CLASS_pushbuton3 altera_avalon_pio
-#define PUSHBUTON3_BASE 0x11010
+#define PUSHBUTON3_BASE 0x11030
 #define PUSHBUTON3_BIT_CLEARING_EDGE_REGISTER 0
 #define PUSHBUTON3_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define PUSHBUTON3_CAPTURE 0
@@ -454,7 +480,7 @@
  */
 
 #define ALT_MODULE_CLASS_pushbuton4 altera_avalon_pio
-#define PUSHBUTON4_BASE 0x11000
+#define PUSHBUTON4_BASE 0x11020
 #define PUSHBUTON4_BIT_CLEARING_EDGE_REGISTER 0
 #define PUSHBUTON4_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define PUSHBUTON4_CAPTURE 0
