@@ -14,8 +14,8 @@ void write_uart(int tamanho, char *comando)
 {
     unsigned long status = 0;
     int i;
-    //acenderLeds(1, 0);
-    // Verifica atÈ que seja possÌvel a transmiss„o de dados
+    // acenderLeds(1, 0);
+    // Verifica at√© que seja poss√≠vel a transmiss√£o de dados
     while((status & 0x00000040) != 0x00000040)
     {
         status = IORD_ALTERA_AVALON_UART_STATUS(UART_1_BASE);
@@ -28,40 +28,18 @@ void write_uart(int tamanho, char *comando)
     IOWR_ALTERA_AVALON_UART_TXDATA(UART_1_BASE, '\r');
     usleep(1000);
     IOWR_ALTERA_AVALON_UART_TXDATA(UART_1_BASE, '\n');
-    usleep(1000);
-    IOWR_ALTERA_AVALON_UART_TXDATA(UART_1_BASE, '\r');
-    usleep(1000);
-    IOWR_ALTERA_AVALON_UART_TXDATA(UART_1_BASE, '\n');
-    usleep(1000);
+
 }
 
 char read_uart()
 {
-
-	char a;
-	printf("BBBBBB");
-	/*
-	printf("%c", a);
-	while (1) {
-		a = IORD_ALTERA_AVALON_UART_RXDATA(UART_1_BASE);
-		printf("%c", a);
-		usleep(500000);
-		if (a == 'K') {
-			return a;
-		}
-	}*/
-	alt_u16 status=IORD_ALTERA_AVALON_UART_STATUS(UART_1_BASE);
-	while(!(status&0x0080)){
-		status=IORD_ALTERA_AVALON_UART_STATUS(UART_1_BASE);
+	char data;
+    while(1){
+    	if(IORD_ALTERA_AVALON_UART_STATUS( UART_1_BASE ) & 0x80 ) {
+    		data = IORD_ALTERA_AVALON_UART_RXDATA( UART_1_BASE );
+	        printf("%c",data);
+    	}
 	}
-	printf("|||||->");
-	a=IORD_ALTERA_AVALON_UART_RXDATA(UART_1_BASE);
-	printf("%c", a);
-	return a;
-	/*
-    char x;
-    x = IORD_ALTERA_AVALON_UART_RXDATA(UART_1_BASE);
-    return x;*/
 }
 
 void acenderLeds(int opcao, int nivelLogico) {
@@ -76,11 +54,10 @@ void acenderLeds(int opcao, int nivelLogico) {
 	} else if (opcao == 5) {
 		IOWR_ALTERA_AVALON_PIO_DATA(LED5_BASE, nivelLogico);
 	}
-
 }
 
 /*
- * FunÁ„o para escrever palavras no LCD
+ * Fun√ß√£o para escrever palavras no LCD
  */
 void printalcd(char word[][16], int lugar) {
 	lugar = lugar - 1;
@@ -141,7 +118,7 @@ int main() {
 	int opcao = 1;
 	int entrouOpcao = 0, liberado = 1;
 
-	// INICIALIZA«√O DO LCD
+	// INICIALIZA√á√ÉO DO LCD
 	lcd_init();
 	char bemVindo[1][16] = { " SEJA BEM VINDO" };
 	char options[5][16] = { "1 opcao", "2 opcao", "3 opcao", "4 opcao",
@@ -164,7 +141,7 @@ int main() {
 
 //_____________________________________________________
 
-	char comando[] = "AT";
+	char comando[] = "AT+GMR";
 	char resposta;
 	//printf("%d",strlen(comando));
 	write_uart(strlen(comando), comando);

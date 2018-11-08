@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Nov 6, 2018 10:15:17 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1541553317624</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Nov 7, 2018 7:32:02 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1541629922787</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\Micro\Desktop\PBL_SD-master\PBL_SD-master\software\ProjetoPbl2_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>C:\Users\Micro\Desktop\PBL_SD-master\PBL_SD-master\Nios.sopcinfo</SopcDesignFile>
