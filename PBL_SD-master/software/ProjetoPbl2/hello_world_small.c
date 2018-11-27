@@ -208,15 +208,14 @@ void initConnection(){
 	IOWR_ALTERA_AVALON_UART_TXDATA(UART_1_BASE, '\n');
 	read_uart();
 
-	//sendPublish(1);
 	printf("\nCONEXAO COM O BROKER CONCLUIDA!");
 }
 
 void sendPublish(int opcao){
+	int z;
 	opcao = opcao-1;
 	char optop[] = {0x31,0x32,0x33,0x34,0x35};
-	//nt num = (int)strtol(opcao, NULL, 10);
-	int z;
+
 	/*        PUBLISH PARA teste/teste1 - Opções
 		Tipo da mensagem = 0x30 (Publish)
 		Tamanho total da mensagem = 0x19 (25)
@@ -242,7 +241,6 @@ void sendPublish(int opcao){
 	write_uart(strlen(cmd4),cmd4);
 	read_uart();
 
-
 	for(z=0; z < sizeof(publish); z++){
 		printf("---------------\n");
 		printf("%d",z);
@@ -255,7 +253,6 @@ void sendPublish(int opcao){
 	IOWR_ALTERA_AVALON_UART_TXDATA(UART_1_BASE, '\n');
 	//usleep(1000);
 	read_uart();
-
 }
 
 int main() {
@@ -288,6 +285,7 @@ int main() {
 	// INICIALIZAÇÃO DO LCD
 	lcd_init();
 	char bemVindo[1][16] = { " SEJA BEM VINDO" };
+	char conectando[1][16] = { " CONECTANDO..." };
 	char options[5][16] = { "1 opcao", "2 opcao", "3 opcao", "4 opcao",
 			"5 opcao" };
 	// Palavras para serem escritas no LCD
@@ -303,7 +301,7 @@ int main() {
 
 	printalcd(bemVindo, opcao);
 	usleep(2000000);
-	printalcd(options, opcao);
+	printalcd(conectando, opcao);
 
 	//_________________________COMANDOS AT__________________________________
 
@@ -316,6 +314,8 @@ int main() {
 	initConnection();
 
 	//_______________________FIM DOS COMANDOS AT____________________________
+
+	printalcd(options, opcao);
 	while (1) {
 		sw_value = IORD_ALTERA_AVALON_PIO_DATA(PUSHBUTON1_BASE);
 		sw_value1 = IORD_ALTERA_AVALON_PIO_DATA(PUSHBUTON2_BASE);
