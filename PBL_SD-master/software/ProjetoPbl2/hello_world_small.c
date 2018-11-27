@@ -9,12 +9,14 @@ char button_value = 3;
 #define UP_BUTTON 1
 #define DOWN_BUTTON 2
 
-
+/*
+ * Função para enviar os caracteres através o TX (transmissor)
+ * */
 void write_uart(int tamanho, char *comando)
 {
+	int i;
     unsigned long status = 0;
-    int i;
-    // acenderLeds(1, 0);
+
     // Verifica até que seja possível a transmissão de dados
     while((status & 0x00000040) != 0x00000040)
     {
@@ -31,30 +33,35 @@ void write_uart(int tamanho, char *comando)
 
 }
 
-void write_uart_quick(int tamanho, char comando)
+/*
+ * Função para enviar os caracteres através o TX (transmissor)
+ * */
+void write_uart_quick(char comando)
 {
-	printf("COMANDO: %c", comando);
-    unsigned long status = 0;
-    int i;
-    // acenderLeds(1, 0);
+	int i;
+	unsigned long status = 0;
+	//printf("COMANDO: %c", comando);
+
     // Verifica até que seja possível a transmissão de dados
     while((status & 0x00000040) != 0x00000040)
     {
         status = IORD_ALTERA_AVALON_UART_STATUS(UART_1_BASE);
     }
 
-    for (i = 0; i < tamanho; i++) {
-    	IOWR_ALTERA_AVALON_UART_TXDATA(UART_1_BASE, comando);
-    	usleep(1000);
-    }
+	IOWR_ALTERA_AVALON_UART_TXDATA(UART_1_BASE, comando);
+	usleep(1000);
 
 }
 
+/*
+ * Função para receber os caracteres através o rx (receptor)
+ * */
 char read_uart()
 {
-    int x=0;
 	char data;
-    while(1){
+
+	while(1){
+    	// Verifica se possui dados para serem lidos
     	if(IORD_ALTERA_AVALON_UART_STATUS( UART_1_BASE ) & 0x80 ) {
     		data = IORD_ALTERA_AVALON_UART_RXDATA( UART_1_BASE );
 	        printf("%c",data);
@@ -66,7 +73,9 @@ char read_uart()
 	}
 }
 
-
+/*
+ * Função para selecionar (acender) o LED corretamente através da opção
+ */
 void acenderLeds(int opcao, int nivelLogico) {
 	if (opcao == 1) {
 		IOWR_ALTERA_AVALON_PIO_DATA(LED1_BASE, nivelLogico);
@@ -85,9 +94,10 @@ void acenderLeds(int opcao, int nivelLogico) {
  * Função para escrever palavras no LCD
  */
 void printalcd(char word[][16], int lugar) {
-	lugar = lugar - 1;
 
 	int i;
+	lugar = lugar - 1;
+
 	/* Set the Cursor to the home position */
 	ALT_CI_LCD_0(LCD_WR_COMMAND_REG, 0x02);
 	usleep(2000);
@@ -95,14 +105,16 @@ void printalcd(char word[][16], int lugar) {
 	/* Display clear */
 	ALT_CI_LCD_0(LCD_WR_COMMAND_REG, 0x01);
 	usleep(2000);
-	//printf("%i",strlen(word));
+
 	for (i = 0; i < strlen(word); i++) {
-		//printf("PALAVRA: %c \n", word[lugar][i]);
 		ALT_CI_LCD_0(LCD_WR_DATA_REG, word[lugar][i]);
 		usleep(100);
 	}
 }
 
+/*
+ * Função para inicializar o LCD
+ */
 void lcd_init(void) {
 	usleep(15000); /* Wait for more than 15 ms before init */
 	/* Set function code four times -- 8-bit, 2 line, 5x7 mode */
@@ -136,26 +148,137 @@ void lcd_init(void) {
 	usleep(2000);
 }
 
+void atTest(){
+	// AT TESTE
+	int z;
+	char comando[] = "AT";
+	write_uart(strlen(comando), comando);
+	read_uart();
+}
+
+void networkConnection(){
+	char cmd[] = "AT+CWJAP=\"WLessLEDS\",\"HelloWorldMP31\"";
+	//char cmd[] = "AT+CWJAP=\"IEEE_UEFS\",\"ramoIEEEUEFS\"";
+	//char cmd[] = "AT+CWJAP=\"Gilberto WiFi\",\"20152015\"";
+	write_uart(strlen(cmd), cmd);
+	read_uart();
+
+	printf("CONECTOU A REDE!");
+}
+
+void tcpConnection(){
+	// Iniciando a conexão TCP
+	char cmd2[] = "AT+CIPSTART=\"TCP\",\"192.168.1.103\",1883";
+	//char cmd2[] = "AT+CIPSTART=\"TCP\",\"test.mosquitto.org\",1883";
+	write_uart(strlen(cmd2), cmd2);
+	read_uart();
+
+	printf("CONEXAO TCP OK!");
+}
+
+void initConnection(){
+	int z;
+	/*         CONEXÃO
+		Tipo da mensagem = 0x10 (Connect)
+		Tamanho total da mensagem = 0x11 (17)
+		Tamanho do nome do protocolo  = 0x00, 0x04 (4)
+		Nome do protocolo = 0x4D, 0x51, 0x54, 0x54 (MQTT)
+		Versão do protocolo = x04 (4)
+		Flags = 0x02 (2)
+		Keep Alive = 0x00, 0x14 (20)
+		Tamanho do ID do cliente = 0x00, 0x05 (5)
+		ID do cliente = 0x4E, 0x69, 0x6F, 0x73, 0x35 (Nios2)
+	*/
+	char connect[] = {0x10, 0x11, 0x00, 0x04, 0x4D, 0x51,
+			0x54, 0x54, 0x04, 0x02, 0x00, 0x64, 0x00, 0x05,
+			0x4E, 0x69, 0x6F, 0x73, 0x36};
+
+	/*      ENVIANDO O PACOTE DE CONEXÃO     */
+	char cmd3[] = "AT+CIPSEND=19";
+	write_uart(strlen(cmd3),cmd3);
+
+	read_uart();
+	//printf("%d", sizeof(connect));
+	for(z=0; z < sizeof(connect); z++){
+		printf("%c", connect[z]);
+		write_uart_quick(connect[z]);
+	}
+	IOWR_ALTERA_AVALON_UART_TXDATA(UART_1_BASE, '\r');
+	usleep(1000);
+	IOWR_ALTERA_AVALON_UART_TXDATA(UART_1_BASE, '\n');
+	read_uart();
+
+	//sendPublish(1);
+	printf("\nCONEXAO COM O BROKER CONCLUIDA!");
+}
+
+void sendPublish(int opcao){
+	opcao = opcao-1;
+	char optop[] = {0x31,0x32,0x33,0x34,0x35};
+	//nt num = (int)strtol(opcao, NULL, 10);
+	int z;
+	/*        PUBLISH PARA teste/teste1 - Opções
+		Tipo da mensagem = 0x30 (Publish)
+		Tamanho total da mensagem = 0x19 (25)
+		Tamaho do tópico = 0x00, 0x0C (12)
+		Tópico = 0x74, 0x65, 0x73, 0x74, 0x65, 0x2f, 0x74, 0x65,
+				 0x73, 0x74, 0x65, 0x31 (teste/teste1)
+		Mensagem = 0x45, 0x6E, 0x74, 0x72, 0x6F, 0x75, 0x20, 0x6E,
+				 0x6F, 0x20, 0x31 (Entrou no 1)
+	*/
+	char publish[] = {0x30, 0x19, 0x00, 0x0C,
+			0x74, 0x65, 0x73, 0x74, 0x65, 0x2f, 0x74,
+			0x65, 0x73, 0x74, 0x65, 0x31, 0x45, 0x6E,
+			0x74, 0x72, 0x6F, 0x75, 0x20, 0x6E, 0x6F,
+			0x20, 0x31};
+
+	/*char publish[] = {0x30, 0x18, 0x00, 0x0C,
+				0x74, 0x65, 0x73, 0x74, 0x65, 0x2f, 0x74, 0x65, 0x73, 0x74, 0x65, 0x31,
+				0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x57, 0x6F, 0x72, 0x6C, 0x64};
+	*/
+	publish[26] = optop[opcao];
+	/*      ENVIANDO O PACOTE DE PUBLISH     */
+	char cmd4[] = "AT+CIPSEND=27"; // 27- teste/teste1
+	write_uart(strlen(cmd4),cmd4);
+	read_uart();
+
+
+	for(z=0; z < sizeof(publish); z++){
+		printf("---------------\n");
+		printf("%d",z);
+		printf(": %c", publish[z]);
+		write_uart_quick(publish[z]);
+		printf("---------------\n");
+	}
+	IOWR_ALTERA_AVALON_UART_TXDATA(UART_1_BASE, '\r');
+	usleep(1000);
+	IOWR_ALTERA_AVALON_UART_TXDATA(UART_1_BASE, '\n');
+	//usleep(1000);
+	read_uart();
+
+}
+
 int main() {
-	//printf("Hello from Nioss II!!\n");
-
-	// Alterar o x12 - Tamanho do pacote
-	// O ID= 'Nios 2'
-	char connect[] = {0x10, 0x11, 0x00, 0x04, 0x4D, 0x51, 0x54, 0x54,
-			0x04, 0x02, 0x00, 0x14, 0x00, 0x05, 0x4E, 0x69, 0x6F, 0x73, 0x35};
-
-	// 0x30 -> Código da mensagem para o publish
-	// 0x0F -> Tamanho da mensagem (decimal)
-	// 0x00, 0x02 -> Tamanho do tópico
+	printf("ENTROU");
+	/*        PUBLISH PARA teste/teste1 - Hello Word
+		Tipo da mensagem = 0x30 (Publish)
+		Tamanho total da mensagem = 0x19 (24)
+		Tamaho do tópico = 0x00, 0x0C (12)
+		Tópico = 0x74, 0x65, 0x73, 0x74, 0x65, 0x2f, 0x74, 0x65,
+				 0x73, 0x74, 0x65, 0x31 (teste/teste1)
+		Mensagem = 0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x57, 0x6F, 0x72,
+				 0x6C, 0x64 (Hello World)
+	*/
+	/*
 	char publish[] = {0x30, 0x18, 0x00, 0x0C,
 			0x74, 0x65, 0x73, 0x74, 0x65, 0x2f, 0x74, 0x65, 0x73, 0x74, 0x65, 0x31,
-			0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x57, 0x6F, 0x72, 0x6C, 0x64};
-	/*char publish[] = {0x30, 0x11, 0x05,
-				0x74, 0x65, 0x73, 0x74, 0x65,
-				0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x57, 0x6F, 0x72, 0x6C, 0x64};*/
-	/*char publish[] = {0x30, 0x0F, 0x00, 0x02,
-					0x53, 0x44, 0x48, 0x65, 0x6C,
-					0x6C, 0x6F, 0x20, 0x57, 0x6F, 0x72, 0x6C, 0x64};*/
+			0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x57, 0x6F, 0x72, 0x6C, 0x64};
+	*/
+
+	/*
+		Tipo da mensagem = 0xE0 (Desconexão)
+		Tamango total da mensagem = 0x00 (0)
+	*/
 	//char disconnect[] = {0xE0, 0x00};
 
  	int sw_value, sw_value1, sw_value2, sw_value3;
@@ -167,10 +290,9 @@ int main() {
 	char bemVindo[1][16] = { " SEJA BEM VINDO" };
 	char options[5][16] = { "1 opcao", "2 opcao", "3 opcao", "4 opcao",
 			"5 opcao" };
-	//char options2[5][16] = {"1 opcao","2 opcao","3 opcao","4 opcao","5 opcao"};
+	// Palavras para serem escritas no LCD
 	char options2[5][16] = { "Entrou no 1", "Entrou no 2", "Entrou no 3",
 			"Entrou no 4", "Entrou no 5" };
-	// Enviando palavra para ser exibida no LCD
 
 	// Desligar todos os LEDS
 	IOWR_ALTERA_AVALON_PIO_DATA(LED1_BASE, 1);
@@ -183,82 +305,17 @@ int main() {
 	usleep(2000000);
 	printalcd(options, opcao);
 
-//_____________________________________________________
+	//_________________________COMANDOS AT__________________________________
 
-	int x, z;
-	char comando[] = "AT";
-	char resposta;
-	//printf("%d",strlen(comando));
-	write_uart(strlen(comando), comando);
-	read_uart();
-	char cmd[] = "AT+CWJAP=\"WLessLEDS\",\"HelloWorldMP31\"";
-	//char cmd[] = "AT+CWJAP=\"IEEE_UEFS\",\"ramoIEEEUEFS\"";
-	//char cmd[] = "AT+CWJAP=\"Gilberto WiFi\",\"20152015\"";
-	write_uart(strlen(cmd), cmd);
-	read_uart();
-	printf("CONECTOU A REDE!");
+	//atTest();
 
-	//192.168.1.100 1883
-	// Conectando ao cloudmqtt
-	char cmd2[] = "AT+CIPSTART=\"TCP\",\"192.168.1.103\",1883";
-	//char cmd2[] = "AT+CIPSTART=\"TCP\",\"test.mosquitto.org\",1883";
-	write_uart(strlen(cmd2), cmd2);
-	read_uart();
-	//printf("%c", connect[0]);
-	printf("CONEXAO TCP!");
-	printf("%d", sizeof(connect));
-	/*
-	char cmd3[] = "AT+CIPSTATUS";
-	write_uart(strlen(cmd3), cmd3);
-	read_uart();
-	*/
-	char cmd3[] = "AT+CIPSEND=19";
-	//char cmd4 = strlen(connect);
-	//write_uart_quick(strlen(cmd3), cmd3);
-	write_uart(strlen(cmd3),cmd3);
-	read_uart();
-	//printf(strlen(connect));
-	//write_uart(strlen(connect),connect);
-	for(z=0; z < sizeof(connect); z++){
-		printf("%c", connect[z]);
-		write_uart_quick(1, connect[z]);
-	}
-	IOWR_ALTERA_AVALON_UART_TXDATA(UART_1_BASE, '\r');
-	usleep(1000);
-	IOWR_ALTERA_AVALON_UART_TXDATA(UART_1_BASE, '\n');
-	read_uart();
+	networkConnection();
 
-	printf("\nCONEXAO COM O BROKER CONCLUIDA!");
+	tcpConnection();
 
-	// 26- teste/teste1
-	char cmd4[] = "AT+CIPSEND=26";
-	write_uart(strlen(cmd4),cmd4);
-	//read_uart();
-	printf("\nTAMANHO: %d\n",sizeof(publish));
-	//write_uart(strlen(connect),connect);
-	printf("---------------\n");
-	printf("%c", publish[0]);
-	printf("---------------\n");
-	printf("%c", publish[1]);
-	printf("----------------\n");
+	initConnection();
 
-	for(z=0; z < sizeof(publish); z++){
-		printf("---------------\n");
-		printf("%d",z);
-		printf(": %c", publish[z]);
-		write_uart_quick(1, publish[z]);
-	}
-
-	IOWR_ALTERA_AVALON_UART_TXDATA(UART_1_BASE, '\r');
-	usleep(1000);
-	IOWR_ALTERA_AVALON_UART_TXDATA(UART_1_BASE, '\n');
-	read_uart();
-
-
-
-	printf("Terminou!");
-
-//_____________________________________________________
+	//_______________________FIM DOS COMANDOS AT____________________________
 	while (1) {
 		sw_value = IORD_ALTERA_AVALON_PIO_DATA(PUSHBUTON1_BASE);
 		sw_value1 = IORD_ALTERA_AVALON_PIO_DATA(PUSHBUTON2_BASE);
@@ -289,6 +346,9 @@ int main() {
 			printalcd(options, opcao);
 		} else if (sw_value3 == 0 && liberado == 1) { // Aperta o button4
 			acenderLeds(opcao, 0);
+
+			sendPublish(opcao);
+
 			printalcd(options2, opcao);
 			entrouOpcao = 1;
 			liberado = 0;
