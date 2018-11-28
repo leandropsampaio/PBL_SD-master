@@ -1,5 +1,5 @@
 # Sistemas Digitais
 
-Equipe:  </br> 
-Leandro Pereira Sampaio </br> 
-Gabriel Silva de Azevedo
+## Equipe:  </br> 
+* Leandro Pereira Sampaio </br> 
+* Gabriel Silva de Azevedo
